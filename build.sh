@@ -12,10 +12,10 @@ curl -L -o fedora-live-base.ks https://pagure.io/fedora-kickstarts/raw/main/f/fe
 mkdir -p ./output
 
 # 4. Build the ISO using livemedia-creator
-# This tool is the modern replacement for livecd-creator
-livemedia-creator --livecd --ks zenith-linux.ks \
+# Added --make-iso and fixed the directory flag
+livemedia-creator --make-iso --ks zenith-linux.ks \
 --project "Zenith Linux Alpha" \
 --releasever 40 \
 --volid Zenith-Linux \
---outputdir ./output \
+--resultdir ./output \
 --no-virt
