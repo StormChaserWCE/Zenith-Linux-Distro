@@ -1,0 +1,14 @@
+{
+    "name": "Zenith-Linux Build Env",
+    "image": "registry.fedoraproject.org/fedora:40",
+    "remoteUser": "root",
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "ms-vscode.cpptools",
+                "redhat.vscode-xml"
+            ]
+        }
+    },
+    "postCreateCommand": "dnf install -y fedora-kickstarts livecd-tools lorax micro git"
+}
