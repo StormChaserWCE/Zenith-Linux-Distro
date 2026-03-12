@@ -3,10 +3,13 @@
 # Wallpaper: Classic Bliss (Windows XP)
 # Version: 0.1 (Alpha)
 
-# 1. Pull in the Fedora Base (Ensure these .ks files are in the same directory)
+# 1. Installation Source (CRITICAL: Added this)
+url --url="https://dl.fedoraproject.org/pub/fedora/linux/releases/40/Everything/x86_64/os/"
+
+# 2. Pull in the Fedora Base
 %include fedora-live-kde.ks
 
-# 2. Package Selection
+# 3. Package Selection
 %packages
 neofetch
 fastfetch
@@ -14,27 +17,22 @@ git
 util-linux-user
 dracut-live
 @kde-desktop
-# You can add specific Zenith tools below
-# zenith-settings  # Enable this once your RPM is in a repository
--rekonq            # Example: Remove unwanted default apps
+-rekonq
 %end
 
-# 3. Post-Installation Scripting
+# 4. Post-Installation Scripting
 %post
 # --- Branding Updates ---
-# Change the OS name in system files
 sed -i 's/PRETTY_NAME=.*/PRETTY_NAME="Zenith-Linux"/' /etc/os-release
 sed -i 's/^NAME=.*/NAME="Zenith-Linux"/' /etc/os-release
 sed -i 's/^ID=fedora/ID=zenith-linux\nID_LIKE=fedora/' /etc/os-release
-%end
 
 # Set the default hostname
 echo "zenith-desktop" > /etc/hostname
 
 # --- Bliss Wallpaper Implementation ---
-# Create the directory and ensure the image exists 
-# (This assumes your RPM or build script placed the file here)
 mkdir -p /usr/share/backgrounds/zenith/
+# Note: Ensure build.sh actually places the jpg here or it will be empty!
 chmod 644 /usr/share/backgrounds/zenith/zenith-default.jpg
 
 # KDE Plasma Script to force the wallpaper on first login
@@ -50,7 +48,6 @@ for (var i = 0; i < allDesktops.length; i++) {
 EOF
 
 # --- Terminal Tweaks ---
-# Make neofetch run automatically when the user opens the terminal
 echo "neofetch" >> /etc/skel/.bashrc
 
 # Custom Login Message (MOTD)
@@ -59,3 +56,6 @@ Welcome to Zenith-Linux
 The peak of Fedora-based KDE Plasma.
 Wallpaper: Classic Bliss
 EOF
+
+# THIS IS THE KEY: The %end must be AFTER all your scripts!
+%end

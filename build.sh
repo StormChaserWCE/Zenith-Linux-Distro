@@ -12,6 +12,8 @@ curl -fL -o fedora-live-kde.ks https://pagure.io/fedora-kickstarts/raw/f40/f/fed
 curl -fL -o fedora-live-base.ks https://pagure.io/fedora-kickstarts/raw/f40/f/fedora-live-base.ks
 
 # 4. Build the ISO
+mkdir -p /usr/share/backgrounds/zenith/
+cp zenith-default.jpg /usr/share/backgrounds/zenith/ 2>/dev/null || echo "Wallpaper missing, skipping copy"
 livemedia-creator --make-iso --ks zenith-linux.ks \
 --project "Zenith Linux Alpha" \
 --releasever 40 \
