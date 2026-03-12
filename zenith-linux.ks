@@ -26,6 +26,7 @@ dracut-live
 sed -i 's/PRETTY_NAME=.*/PRETTY_NAME="Zenith-Linux"/' /etc/os-release
 sed -i 's/^NAME=.*/NAME="Zenith-Linux"/' /etc/os-release
 sed -i 's/^ID=fedora/ID=zenith-linux\nID_LIKE=fedora/' /etc/os-release
+%end
 
 # Set the default hostname
 echo "zenith-desktop" > /etc/hostname
