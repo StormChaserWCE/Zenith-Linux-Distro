@@ -12,6 +12,8 @@ neofetch
 fastfetch
 git
 util-linux-user
+dracut-live
+@kde-desktop
 # You can add specific Zenith tools below
 # zenith-settings  # Enable this once your RPM is in a repository
 -rekonq            # Example: Remove unwanted default apps
@@ -56,5 +58,3 @@ Welcome to Zenith-Linux
 The peak of Fedora-based KDE Plasma.
 Wallpaper: Classic Bliss
 EOF
-
-%end

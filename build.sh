@@ -3,12 +3,13 @@
 # 1. Install Lorax, Anaconda, and dependencies
 dnf install -y --allowerasing lorax anaconda anaconda-tui curl git
 
-# 2. Clean up any previous attempts
+# 2. Clean up
 rm -rf ./output
 
-# 3. Download the RAW Fedora KDE base kickstarts (Fixed URLs)
-curl -fL -o fedora-live-kde.ks https://pagure.io/fedora-kickstarts/raw/main/f/fedora-live-kde.ks
-curl -fL -o fedora-live-base.ks https://pagure.io/fedora-kickstarts/raw/main/f/fedora-live-base.ks
+# 3. Download the CORRECT Raw Fedora KDE base kickstarts
+# These are the updated mirrors for Fedora 40
+curl -fL -o fedora-live-kde.ks https://pagure.io/fedora-kickstarts/raw/f40/f/fedora-live-kde.ks
+curl -fL -o fedora-live-base.ks https://pagure.io/fedora-kickstarts/raw/f40/f/fedora-live-base.ks
 
 # 4. Build the ISO
 livemedia-creator --make-iso --ks zenith-linux.ks \
