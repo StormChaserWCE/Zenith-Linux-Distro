@@ -1,15 +1,21 @@
 #!/bin/bash
-# Install build tools
-dnf install -y livecd-tools lorax curl
 
-# Download the required Fedora base kickstarts
-curl -L https://pagure.io/fedora-kickstarts/raw/main/fedora-live-kde.ks -o fedora-live-kde.ks
-curl -L https://pagure.io/fedora-kickstarts/raw/main/fedora-live-base.ks -o fedora-live-base.ks
-curl -L https://pagure.io/fedora-kickstarts/raw/main/fedora-live-minimization.ks -o fedora-live-minimization.ks
+# 1. Install Lorax and dependencies
+dnf install -y lorax curl git
 
-# Download the Bliss Wallpaper so the Kickstart can find it
-mkdir -p /usr/share/backgrounds/zenith/
-curl -L "https://upload.wikimedia.org/wikipedia/en/2/27/Bliss_%28Windows_XP_wallpaper%29.jpg" -o /usr/share/backgrounds/zenith/zenith-default.jpg
+# 2. Download the official Fedora KDE base kickstarts
+# We need these because your zenith-linux.ks likely "includes" them
+curl -L -o fedora-live-kde.ks https://pagure.io/fedora-kickstarts/raw/main/f/fedora-live-kde.ks
+curl -L -o fedora-live-base.ks https://pagure.io/fedora-kickstarts/raw/main/f/fedora-live-base.ks
 
-# Run the ISO Creator
-livecd-creator --config=zenith-linux.ks --fslabel=Zenith-Linux-Alpha --cache=/var/cache/live
+# 3. Create the output directory
+mkdir -p ./output
+
+# 4. Build the ISO using livemedia-creator
+# This tool is the modern replacement for livecd-creator
+livemedia-creator --livecd --ks zenith-linux.ks \
+--project "Zenith Linux Alpha" \
+--releasever 40 \
+--volid Zenith-Linux \
+--outputdir ./output \
+--no-virt

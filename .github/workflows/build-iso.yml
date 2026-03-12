@@ -1,4 +1,5 @@
 name: Build Zenith-Linux ISO
+
 on:
   push:
     branches: [ main ]
@@ -13,11 +14,14 @@ jobs:
 
       - name: Build ISO in Fedora Container
         run: |
-          docker run --privileged -v $(pwd):/build registry.fedoraproject.org/fedora:40           /bin/bash -c "cd /build && chmod +x build.sh && ./build.sh"
+          # We run the Fedora 40 container in privileged mode to allow loop device mounting
+          docker run --privileged -v $(pwd):/build registry.fedoraproject.org/fedora:40 \
+          /bin/bash -c "cd /build && chmod +x build.sh && ./build.sh"
 
       - name: Upload Zenith ISO
         uses: actions/upload-artifact@v4
         with:
           name: Zenith-Linux-Alpha-ISO
-          path: "*.iso"
+          # livemedia-creator puts the final ISO in the 'output' folder we defined in build.sh
+          path: "output/images/boot.iso"
           retention-days: 5
